@@ -162,6 +162,25 @@ void delete_at_pos(Node **head, int pos){
     }
 }
 
+void sort_list(Node **head){
+    
+    Node *temp1 = *head;
+    Node *temp2 = *head;
+    while(temp1->next != NULL){
+        temp2 = temp1;
+        while(temp2->next != NULL){
+            temp2 = temp2->next;
+            if(temp1->data <temp2->data){
+                int t = temp1->data;
+                temp1->data = temp2->data;
+                temp2->data = t;
+            }
+            
+        }
+        temp1 = temp1->next;
+    }
+}
+
 
 int main()
 {
@@ -203,6 +222,10 @@ int main()
     Print_List(head);
     
     delete_at_pos(&head,5);
+    printf("\n");
+    Print_List(head);
+    
+    sort_list(&head);
     printf("\n");
     Print_List(head);
     
