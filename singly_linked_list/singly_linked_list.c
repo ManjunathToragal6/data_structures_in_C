@@ -15,6 +15,19 @@ typedef struct Node{
 }Node;
 
 
+void insert_at_first(Node **head, int data){
+    Node *newNode = malloc(sizeof(Node));
+    newNode->next = NULL;
+    newNode->data = data;
+    
+    if(*head == NULL){
+        *head = newNode;
+    }else{
+        newNode->next = *head;
+        *head = newNode;
+    }
+}
+
 
 void creat_node(Node **head, int data){
     
@@ -35,6 +48,30 @@ void creat_node(Node **head, int data){
 }
 
 
+void insert_at_last(Node **head, int data){
+    Node *newNode = malloc(sizeof(Node));
+    
+    newNode->next = NULL;
+    newNode->data = data;
+    
+    if(*head == NULL){
+        *head = newNode;
+    }else{
+        Node *temp = *head;
+        
+        while(temp->next != NULL){
+            temp = temp->next;
+        }
+        
+        temp->next = newNode;
+        
+    }
+    
+    
+    
+}
+
+
 
 void Print_List(Node *head){
     
@@ -51,6 +88,81 @@ void Print_List(Node *head){
 }
 
 
+int insert_at_pos(Node **head, int data, int pos){
+    
+    Node *newNode = malloc(sizeof(Node));
+    
+    newNode->next = NULL;
+    newNode->data = data;
+    
+    
+    Node *temp = *head;
+    for(int i = 1; i<(pos-1) && temp->next != NULL; i++){
+        
+        temp = temp->next;
+    }
+    
+    
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void delete_first(Node **head){
+    
+    Node *temp = *head;
+    
+    if(*head == NULL){
+        return;
+    }else{
+        *head = (*head)->next;
+        free(temp);
+    }
+    
+    
+    
+}
+
+
+void delete_last(Node **head){
+    Node *temp = *head;
+    
+    if(*head == NULL){
+        return;
+    }else{
+        while(temp->next->next != NULL){
+            temp = temp->next;
+        }
+        Node *ToDelete = temp->next;
+        temp->next = NULL;
+        free(NULL);
+        
+    }
+    
+}
+
+
+void delete_at_pos(Node **head, int pos){
+    Node *temp = *head;
+    
+    if(*head == NULL){
+        return;
+    }else{
+        
+        
+        for(int i=1; i<(pos-1) && temp->next != NULL; i++){
+            temp = temp->next;
+        }
+        
+        Node *ToDelete = temp->next;
+        
+        temp->next = temp->next->next;
+        
+        free(ToDelete);
+        
+    }
+}
+
+
 int main()
 {
     Node *head = NULL;
@@ -64,6 +176,34 @@ int main()
         
     }
     
+    
+    printf("\n");
+    Print_List(head);
+    
+    insert_at_first(&head, 1500);
+    
+    printf("\n");
+    Print_List(head);
+    
+    insert_at_last(&head, 2000);
+    
+    printf("\n");
+    Print_List(head);
+    
+    insert_at_pos(&head,90000,2);
+    printf("\n");
+    Print_List(head);
+    
+    delete_first(&head);
+    printf("\n");
+    Print_List(head);
+    
+    delete_last(&head);
+    printf("\n");
+    Print_List(head);
+    
+    delete_at_pos(&head,5);
+    printf("\n");
     Print_List(head);
     
     return 0;
