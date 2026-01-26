@@ -123,6 +123,45 @@ void delete_first(Node **head){
 }
 
 
+int find_nth_last(Node *head, int pos, int *data){
+    Node *temp = head;
+    int count = 0;
+    
+    while(temp != NULL){
+        count++;
+        temp = temp->next;
+    }
+    
+    if(pos > count || pos < 1){
+        return -1;
+    }
+    
+    temp = head;
+    for(int i=0; i<(count-pos); i++){
+        temp = temp->next;
+    }
+    
+    *data = temp->data;
+    
+    return 0;
+}
+
+void reverse_list(Node **head){
+    Node *prev = NULL;
+    Node *current = *head;
+    Node *next = NULL;
+    
+    while(current != NULL){
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    
+}
+
+
+
 void delete_last(Node **head){
     Node *temp = *head;
     
@@ -182,6 +221,30 @@ void sort_list(Node **head){
 }
 
 
+
+int reverse_iterative(Node ** head){
+
+    Node *temp1 = NULL;
+    Node *temp2 = NULL;
+
+    while ((*head) !=NULL)
+    {
+        temp2 = (*head)->next;
+        (*head)->next = temp1;
+        
+        // Move pointers one step forward
+        temp1 = *head;
+        *head = temp2;
+        //updating head to next node
+
+    }
+
+    *head = temp1;
+    
+}
+
+
+
 int main()
 {
     Node *head = NULL;
@@ -228,6 +291,12 @@ int main()
     sort_list(&head);
     printf("\n");
     Print_List(head);
+
+    reverse_iterative(&head);
+    printf("\n");
+    Print_List(head);
     
     return 0;
 }
+
+
